@@ -8,12 +8,12 @@ class General(commands.Cog, name="general"):
     def __init__(self, bot) -> None:
         self.bot = bot
         self.context_menu_user = app_commands.ContextMenu(
-            name="Grab ID", callback=self.grab_id
+            name="Get BBB ID", callback=self.get_id
         )
         self.bot.tree.add_command(self.context_menu_user)
 
     # User context menu command
-    async def grab_id(
+    async def get_id(
         self, interaction: discord.Interaction, user: discord.User
     ) -> None:
         """
