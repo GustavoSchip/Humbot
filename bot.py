@@ -170,6 +170,9 @@ class DiscordBot(commands.Bot):
     async def on_ready(self) -> None:
         await self.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
         await self.tree.sync()
+        for guild in self.guilds:
+            self.tree.copy_global_to(guild=guild)
+            await self.tree.sync(guild=guild)
         await self.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
 
     async def on_message(self, message: discord.Message) -> None:
