@@ -10,14 +10,14 @@ class Owner(commands.Cog, name="owner"):
 
     @commands.hybrid_command(
         name="sync",
-        description="Synchonizes the slash commands.",
+        description="Synchronizes the slash commands.",
     )
     @app_commands.describe(scope="The scope of the sync. Can be `global` or `guild`")
     @app_commands.default_permissions(administrator=True)
     @commands.is_owner()
     async def sync(self, context: Context, scope: str) -> None:
         """
-        Synchonizes the slash commands.
+        Synchronizes the slash commands.
 
         :param context: The command context.
         :param scope: The scope of the sync. Can be `global` or `guild`.
@@ -55,7 +55,7 @@ class Owner(commands.Cog, name="owner"):
 
     @commands.hybrid_command(
         name="unsync",
-        description="Unsynchonizes the slash commands.",
+        description="Unsynchronizes the slash commands.",
     )
     @app_commands.describe(
         scope="The scope of the sync. Can be `global`, `current_guild` or `guild`"
@@ -64,7 +64,7 @@ class Owner(commands.Cog, name="owner"):
     @commands.is_owner()
     async def unsync(self, context: Context, scope: str) -> None:
         """
-        Unsynchonizes the slash commands.
+        Synchronizes the slash commands.
 
         :param context: The command context.
         :param scope: The scope of the sync. Can be `global`, `current_guild` or `guild`.
@@ -103,14 +103,14 @@ class Owner(commands.Cog, name="owner"):
 
     @commands.hybrid_command(
         name="resync",
-        description="Unsynchonizes and then synchonizes the slash commands.",
+        description="Resynchronizes the slash commands.",
     )
     @app_commands.describe(scope="The scope of the resync. Can be `global` or `guild`")
     @app_commands.default_permissions(administrator=True)
     @commands.is_owner()
     async def resync(self, context: Context, scope: str) -> None:
         """
-        Unsynchonizes and then synchonizes the slash commands.
+        Resynchronizes the slash commands.
 
         :param context: The command context.
         :param scope: The scope of the resync. Can be `global` or `guild`.
