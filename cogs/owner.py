@@ -118,7 +118,6 @@ class Owner(commands.Cog, name="owner"):
                 await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
                 context.bot.tree.clear_commands(guild=None)
                 await context.bot.tree.sync()
-                await context.bot.tree.sync()
                 embed = discord.Embed(
                     description="Slash commands have been globally resynchronized.",
                     color=0xBEBEFE,
@@ -131,7 +130,6 @@ class Owner(commands.Cog, name="owner"):
             try:
                 await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
                 context.bot.tree.clear_commands(guild=context.guild)
-                await context.bot.tree.sync(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
                 embed = discord.Embed(
                     description="Slash commands have been resynchronized in this guild.",
