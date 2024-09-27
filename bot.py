@@ -105,6 +105,7 @@ class DiscordBot(commands.Bot):
             intents=intents,
             help_command=None,
             status=discord.Status.do_not_disturb,
+            activity=discord.Activity(name="Starting..."),
         )
         """
         This creates custom bot variables so that we can access these variables in cogs more easily.
@@ -150,6 +151,7 @@ class DiscordBot(commands.Bot):
         This will just be executed when the bot starts the first time.
         """
         self.add_listener(self.on_ready)
+        self.logger.info("-------------------")
         self.logger.info(f"Logged in as {self.user.name}")
         self.logger.info(f"discord.py API version: {discord.__version__}")
         self.logger.info(f"Python version: {platform.python_version()}")
@@ -166,7 +168,7 @@ class DiscordBot(commands.Bot):
         )
 
     async def on_ready(self) -> None:
-        await self.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.do_not_disturb)
+        await self.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
         await self.tree.sync()
         await self.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
 
