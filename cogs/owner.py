@@ -25,7 +25,7 @@ class Owner(commands.Cog, name="owner"):
 
         if scope == "global":
             try:
-                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
                 await context.bot.tree.sync()
                 embed = discord.Embed(
                     description="Slash commands have been globally synchronized.",
@@ -37,7 +37,7 @@ class Owner(commands.Cog, name="owner"):
             return
         elif scope == "guild":
             try:
-                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
                 context.bot.tree.copy_global_to(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
                 embed = discord.Embed(
@@ -72,7 +72,7 @@ class Owner(commands.Cog, name="owner"):
 
         if scope == "global":
             try:
-                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
                 context.bot.tree.clear_commands(guild=None)
                 await context.bot.tree.sync()
                 embed = discord.Embed(
@@ -85,7 +85,7 @@ class Owner(commands.Cog, name="owner"):
             return
         elif scope == "guild":
             try:
-                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
                 context.bot.tree.clear_commands(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
                 embed = discord.Embed(
@@ -118,7 +118,7 @@ class Owner(commands.Cog, name="owner"):
 
         if scope == "global":
             try:
-                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
                 context.bot.tree.clear_commands(guild=None)
                 await context.bot.tree.sync()
                 embed = discord.Embed(
@@ -131,7 +131,7 @@ class Owner(commands.Cog, name="owner"):
             return
         elif scope == "guild":
             try:
-                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
                 context.bot.tree.clear_commands(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
                 embed = discord.Embed(

@@ -105,7 +105,7 @@ class DiscordBot(commands.Bot):
             intents=intents,
             help_command=None,
             status=discord.Status.do_not_disturb,
-            activity=discord.Activity(name="Starting..."),
+            activity=discord.Game(name="Starting..."),
         )
         """
         This creates custom bot variables so that we can access these variables in cogs more easily.
@@ -168,7 +168,7 @@ class DiscordBot(commands.Bot):
         )
 
     async def on_ready(self) -> None:
-        await self.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+        await self.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
         await self.tree.sync()
         await self.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
 
