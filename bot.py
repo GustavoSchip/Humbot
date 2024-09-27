@@ -6,7 +6,7 @@ import sys
 
 import aiosqlite
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from discord.ext.commands import Context
 from dotenv import load_dotenv
 
@@ -150,7 +150,6 @@ class DiscordBot(commands.Bot):
         """
         This will just be executed when the bot starts the first time.
         """
-        self.add_listener(self.on_ready)
         self.logger.info("-------------------")
         self.logger.info(f"Logged in as {self.user.name}")
         self.logger.info(f"discord.py API version: {discord.__version__}")
@@ -166,14 +165,31 @@ class DiscordBot(commands.Bot):
                 f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db"
             )
         )
+        self.sync_task.start()
 
-    async def on_ready(self) -> None:
+    async def bot_sync(self) -> None:
         await self.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
+        self.tree.clear_commands(guild=None)
         await self.tree.sync()
         for guild in self.guilds:
+            self.tree.clear_commands(guild=guild)
             self.tree.copy_global_to(guild=guild)
             await self.tree.sync(guild=guild)
         await self.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
+
+    @tasks.loop(hours=1.0)
+    async def sync_task(self) -> None:
+        """
+        Set up the sync task of the bot.
+        """
+        await self.bot_sync()
+
+    @sync_task.before_loop
+    async def before_sync_task(self) -> None:
+        """
+        Before starting the sync task, we make sure the bot is ready
+        """
+        await self.wait_until_ready()
 
     async def on_message(self, message: discord.Message) -> None:
         """
