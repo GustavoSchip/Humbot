@@ -84,6 +84,45 @@ class Owner(commands.Cog, name="owner"):
         await context.send(embed=embed, ephemeral=True)
 
     @commands.hybrid_command(
+        name="resync",
+        description="Unsynchonizes and then synchonizes the slash commands.",
+    )
+    @app_commands.describe(scope="The scope of the resync. Can be `global` or `guild`")
+    @commands.is_owner()
+    async def resync(self, context: Context, scope: str) -> None:
+        """
+        Unsynchonizes and then synchonizes the slash commands.
+
+        :param context: The command context.
+        :param scope: The scope of the resync. Can be `global` or `guild`.
+        """
+
+        if scope == "global":
+            context.bot.tree.clear_commands(guild=None)
+            await context.bot.tree.sync()
+            await context.bot.tree.sync()
+            embed = discord.Embed(
+                description="Slash commands have been globally resynchronized.",
+                color=0xBEBEFE,
+            )
+            await context.send(embed=embed, ephemeral=True)
+            return
+        elif scope == "guild":
+            context.bot.tree.clear_commands(guild=context.guild)
+            await context.bot.tree.sync(guild=context.guild)
+            await context.bot.tree.sync(guild=context.guild)
+            embed = discord.Embed(
+                description="Slash commands have been resynchronized in this guild.",
+                color=0xBEBEFE,
+            )
+            await context.send(embed=embed, ephemeral=True)
+            return
+        embed = discord.Embed(
+            description="The scope must be `global` or `guild`.", color=0xE02B2B
+        )
+        await context.send(embed=embed, ephemeral=True)
+
+    @commands.hybrid_command(
         name="load",
         description="Load a cog",
     )
