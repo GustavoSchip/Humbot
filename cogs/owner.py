@@ -69,22 +69,30 @@ class Owner(commands.Cog, name="owner"):
         """
 
         if scope == "global":
-            context.bot.tree.clear_commands(guild=None)
-            await context.bot.tree.sync()
-            embed = discord.Embed(
-                description="Slash commands have been globally unsynchronized.",
-                color=0xBEBEFE,
-            )
-            await context.send(embed=embed, ephemeral=True)
+            try:
+                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                context.bot.tree.clear_commands(guild=None)
+                await context.bot.tree.sync()
+                embed = discord.Embed(
+                    description="Slash commands have been globally unsynchronized.",
+                    color=0xBEBEFE,
+                )
+                await context.send(embed=embed, ephemeral=True)
+            finally:
+                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
             return
         elif scope == "guild":
-            context.bot.tree.clear_commands(guild=context.guild)
-            await context.bot.tree.sync(guild=context.guild)
-            embed = discord.Embed(
-                description="Slash commands have been unsynchronized in this guild.",
-                color=0xBEBEFE,
-            )
-            await context.send(embed=embed, ephemeral=True)
+            try:
+                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                context.bot.tree.clear_commands(guild=context.guild)
+                await context.bot.tree.sync(guild=context.guild)
+                embed = discord.Embed(
+                    description="Slash commands have been unsynchronized in this guild.",
+                    color=0xBEBEFE,
+                )
+                await context.send(embed=embed, ephemeral=True)
+            finally:
+                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
             return
         embed = discord.Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
@@ -106,24 +114,32 @@ class Owner(commands.Cog, name="owner"):
         """
 
         if scope == "global":
-            context.bot.tree.clear_commands(guild=None)
-            await context.bot.tree.sync()
-            await context.bot.tree.sync()
-            embed = discord.Embed(
-                description="Slash commands have been globally resynchronized.",
-                color=0xBEBEFE,
-            )
-            await context.send(embed=embed, ephemeral=True)
+            try:
+                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                context.bot.tree.clear_commands(guild=None)
+                await context.bot.tree.sync()
+                await context.bot.tree.sync()
+                embed = discord.Embed(
+                    description="Slash commands have been globally resynchronized.",
+                    color=0xBEBEFE,
+                )
+                await context.send(embed=embed, ephemeral=True)
+            finally:
+                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
             return
         elif scope == "guild":
-            context.bot.tree.clear_commands(guild=context.guild)
-            await context.bot.tree.sync(guild=context.guild)
-            await context.bot.tree.sync(guild=context.guild)
-            embed = discord.Embed(
-                description="Slash commands have been resynchronized in this guild.",
-                color=0xBEBEFE,
-            )
-            await context.send(embed=embed, ephemeral=True)
+            try:
+                await self.bot.change_presence(activity=discord.Activity(name="Syncing..."), status=discord.Status.idle)
+                context.bot.tree.clear_commands(guild=context.guild)
+                await context.bot.tree.sync(guild=context.guild)
+                await context.bot.tree.sync(guild=context.guild)
+                embed = discord.Embed(
+                    description="Slash commands have been resynchronized in this guild.",
+                    color=0xBEBEFE,
+                )
+                await context.send(embed=embed, ephemeral=True)
+            finally:
+                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
             return
         embed = discord.Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
