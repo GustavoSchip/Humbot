@@ -15,7 +15,8 @@ class DatabaseManager:
         :param bbb_id: The BBB ID of the user that should be linked.
         :param bbb_name: The BBB name the user that should be linked.
         """
-        await self.connection.execute("INSERT INTO bbb(user_id, bbb_id, bbb_name) VALUES (?, ?, ?)", user_id, bbb_id, bbb_name)
+        await self.connection.execute("INSERT INTO bbb(user_id, bbb_id, bbb_name) VALUES (?, ?, ?)", user_id, bbb_id,
+                                      bbb_name)
         await self.connection.commit()
         async with self.connection.execute("SELECT COUNT(*) FROM bbb WHERE user_id=?", user_id) as cursor:
             result = await cursor.fetchone()
