@@ -13,7 +13,6 @@ class Owner(commands.Cog, name="owner"):
         description="Synchonizes the slash commands.",
     )
     @app_commands.describe(scope="The scope of the sync. Can be `global` or `guild`")
-    @app_commands.default_permissions()
     @commands.is_owner()
     async def sync(self, context: Context, scope: str) -> None:
         """
@@ -60,7 +59,6 @@ class Owner(commands.Cog, name="owner"):
     @app_commands.describe(
         scope="The scope of the sync. Can be `global`, `current_guild` or `guild`"
     )
-    @app_commands.default_permissions()
     @commands.is_owner()
     async def unsync(self, context: Context, scope: str) -> None:
         """
@@ -106,7 +104,6 @@ class Owner(commands.Cog, name="owner"):
         description="Unsynchonizes and then synchonizes the slash commands.",
     )
     @app_commands.describe(scope="The scope of the resync. Can be `global` or `guild`")
-    @app_commands.default_permissions()
     @commands.is_owner()
     async def resync(self, context: Context, scope: str) -> None:
         """
@@ -152,7 +149,6 @@ class Owner(commands.Cog, name="owner"):
         description="Load a cog",
     )
     @app_commands.describe(cog="The name of the cog to load")
-    @app_commands.default_permissions()
     @commands.is_owner()
     async def load(self, context: Context, cog: str) -> None:
         """
@@ -179,7 +175,6 @@ class Owner(commands.Cog, name="owner"):
         description="Unloads a cog.",
     )
     @app_commands.describe(cog="The name of the cog to unload")
-    @app_commands.default_permissions()
     @commands.is_owner()
     async def unload(self, context: Context, cog: str) -> None:
         """
@@ -206,7 +201,6 @@ class Owner(commands.Cog, name="owner"):
         description="Reloads a cog.",
     )
     @app_commands.describe(cog="The name of the cog to reload")
-    @app_commands.default_permissions()
     @commands.is_owner()
     async def reload(self, context: Context, cog: str) -> None:
         """
@@ -232,7 +226,6 @@ class Owner(commands.Cog, name="owner"):
         name="shutdown",
         description="Make the bot shutdown.",
     )
-    @app_commands.default_permissions()
     @commands.is_owner()
     async def shutdown(self, context: Context) -> None:
         """
