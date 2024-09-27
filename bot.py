@@ -248,7 +248,7 @@ class DiscordBot(commands.Bot):
         elif isinstance(error, commands.MissingRequiredArgument):
             embed = discord.Embed(
                 title="Error!",
-                description=str(error).capitalize(),
+                description=f"Info: {error}",
                 color=0xE02B2B,
             )
             await context.send(embed=embed, ephemeral=True)
