@@ -1,16 +1,7 @@
-"""
-Copyright © Krypton 2019-Present - https://github.com/kkrypt0nn (https://krypton.ninja)
-Description:
-🐍 A simple template to start to code your own and personalized Discord bot in Python
-
-Version: 6.2.0
-"""
-
 import json
 import logging
 import os
 import platform
-import random
 import sys
 
 import aiosqlite
@@ -60,28 +51,16 @@ intents.message_content = True
 intents.presences = True
 """
 
-intents = discord.Intents.default()
-
-"""
-Uncomment this if you want to use prefix (normal) commands.
-It is recommended to use slash commands and therefore not use prefix commands.
-
-If you want to use prefix commands, make sure to also enable the intent below in the Discord developer portal.
-"""
-# intents.message_content = True
-
-# Setup both of the loggers
+intents = discord.Intents()
 
 
 class LoggingFormatter(logging.Formatter):
-    # Colors
     black = "\x1b[30m"
     red = "\x1b[31m"
     green = "\x1b[32m"
     yellow = "\x1b[33m"
     blue = "\x1b[34m"
     gray = "\x1b[38m"
-    # Styles
     reset = "\x1b[0m"
     bold = "\x1b[1m"
 
@@ -95,29 +74,26 @@ class LoggingFormatter(logging.Formatter):
 
     def format(self, record):
         log_color = self.COLORS[record.levelno]
-        format = "(black){asctime}(reset) (levelcolor){levelname:<8}(reset) (green){name}(reset) {message}"
-        format = format.replace("(black)", self.black + self.bold)
-        format = format.replace("(reset)", self.reset)
-        format = format.replace("(levelcolor)", log_color)
-        format = format.replace("(green)", self.green + self.bold)
-        formatter = logging.Formatter(format, "%Y-%m-%d %H:%M:%S", style="{")
+        log_format = "(black){asctime}(reset) (levelcolor){levelname:<8}(reset) (green){name}(reset) {message}"
+        log_format = log_format.replace("(black)", self.black + self.bold)
+        log_format = log_format.replace("(reset)", self.reset)
+        log_format = log_format.replace("(levelcolor)", log_color)
+        log_format = log_format.replace("(green)", self.green + self.bold)
+        formatter = logging.Formatter(log_format, "%Y-%m-%d %H:%M:%S", style="{")
         return formatter.format(record)
 
 
 logger = logging.getLogger("discord_bot")
 logger.setLevel(logging.INFO)
 
-# Console handler
 console_handler = logging.StreamHandler()
 console_handler.setFormatter(LoggingFormatter())
-# File handler
 file_handler = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
 file_handler_formatter = logging.Formatter(
     "[{asctime}] [{levelname:<8}] {name}: {message}", "%Y-%m-%d %H:%M:%S", style="{"
 )
 file_handler.setFormatter(file_handler_formatter)
 
-# Add the handlers
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
 
@@ -125,7 +101,7 @@ logger.addHandler(file_handler)
 class DiscordBot(commands.Bot):
     def __init__(self) -> None:
         super().__init__(
-            command_prefix=commands.when_mentioned_or(config["prefix"]),
+            command_prefix="",
             intents=intents,
             help_command=None,
         )
@@ -147,17 +123,17 @@ class DiscordBot(commands.Bot):
         ) as db:
             with open(
                 f"{os.path.realpath(os.path.dirname(__file__))}/database/schema.sql"
-            ) as file:
-                await db.executescript(file.read())
+            ) as db_file:
+                await db.executescript(db_file.read())
             await db.commit()
 
     async def load_cogs(self) -> None:
         """
         The code in this function is executed whenever the bot will start.
         """
-        for file in os.listdir(f"{os.path.realpath(os.path.dirname(__file__))}/cogs"):
-            if file.endswith(".py"):
-                extension = file[:-3]
+        for cog_file in os.listdir(f"{os.path.realpath(os.path.dirname(__file__))}/cogs"):
+            if cog_file.endswith(".py"):
+                extension = cog_file[:-3]
                 try:
                     await self.load_extension(f"cogs.{extension}")
                     self.logger.info(f"Loaded extension '{extension}'")
@@ -167,13 +143,12 @@ class DiscordBot(commands.Bot):
                         f"Failed to load extension {extension}\n{exception}"
                     )
 
-    @tasks.loop(minutes=1.0)
+    @tasks.loop(count=1)
     async def status_task(self) -> None:
         """
-        Setup the game status task of the bot.
+        Set up the game status task of the bot.
         """
-        statuses = ["with you!", "with Krypton!", "with humans!"]
-        await self.change_presence(activity=discord.Game(random.choice(statuses)))
+        await self.change_presence(activity=discord.Game("My Singing Monsters"))
 
     @status_task.before_loop
     async def before_status_task(self) -> None:
@@ -208,9 +183,10 @@ class DiscordBot(commands.Bot):
 
         :param message: The message that was sent.
         """
-        if message.author == self.user or message.author.bot:
-            return
-        await self.process_commands(message)
+        # if message.author == self.user or message.author.bot:
+        #     return
+        # await self.process_commands(message)
+        pass
 
     async def on_command_completion(self, context: Context) -> None:
         """
@@ -278,7 +254,6 @@ class DiscordBot(commands.Bot):
         elif isinstance(error, commands.MissingRequiredArgument):
             embed = discord.Embed(
                 title="Error!",
-                # We need to capitalize because the command arguments have no capital letter in the code and they are the first word in the error message.
                 description=str(error).capitalize(),
                 color=0xE02B2B,
             )

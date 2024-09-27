@@ -1,11 +1,3 @@
-"""
-Copyright © Krypton 2019-Present - https://github.com/kkrypt0nn (https://krypton.ninja)
-Description:
-🐍 A simple template to start to code your own and personalized Discord bot in Python
-
-Version: 6.2.0
-"""
-
 import discord
 from discord import app_commands
 from discord.ext import commands
@@ -16,7 +8,7 @@ class Owner(commands.Cog, name="owner"):
     def __init__(self, bot) -> None:
         self.bot = bot
 
-    @commands.command(
+    @commands.hybrid_command(
         name="sync",
         description="Synchonizes the slash commands.",
     )
@@ -36,7 +28,7 @@ class Owner(commands.Cog, name="owner"):
                 description="Slash commands have been globally synchronized.",
                 color=0xBEBEFE,
             )
-            await context.send(embed=embed)
+            await context.send(embed=embed, ephemeral=True)
             return
         elif scope == "guild":
             context.bot.tree.copy_global_to(guild=context.guild)
@@ -45,14 +37,14 @@ class Owner(commands.Cog, name="owner"):
                 description="Slash commands have been synchronized in this guild.",
                 color=0xBEBEFE,
             )
-            await context.send(embed=embed)
+            await context.send(embed=embed, ephemeral=True)
             return
         embed = discord.Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
         )
-        await context.send(embed=embed)
+        await context.send(embed=embed, ephemeral=True)
 
-    @commands.command(
+    @commands.hybrid_command(
         name="unsync",
         description="Unsynchonizes the slash commands.",
     )
@@ -75,7 +67,7 @@ class Owner(commands.Cog, name="owner"):
                 description="Slash commands have been globally unsynchronized.",
                 color=0xBEBEFE,
             )
-            await context.send(embed=embed)
+            await context.send(embed=embed, ephemeral=True)
             return
         elif scope == "guild":
             context.bot.tree.clear_commands(guild=context.guild)
@@ -84,12 +76,12 @@ class Owner(commands.Cog, name="owner"):
                 description="Slash commands have been unsynchronized in this guild.",
                 color=0xBEBEFE,
             )
-            await context.send(embed=embed)
+            await context.send(embed=embed, ephemeral=True)
             return
         embed = discord.Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
         )
-        await context.send(embed=embed)
+        await context.send(embed=embed, ephemeral=True)
 
     @commands.hybrid_command(
         name="load",
@@ -110,12 +102,12 @@ class Owner(commands.Cog, name="owner"):
             embed = discord.Embed(
                 description=f"Could not load the `{cog}` cog.", color=0xE02B2B
             )
-            await context.send(embed=embed)
+            await context.send(embed=embed, ephemeral=True)
             return
         embed = discord.Embed(
             description=f"Successfully loaded the `{cog}` cog.", color=0xBEBEFE
         )
-        await context.send(embed=embed)
+        await context.send(embed=embed, ephemeral=True)
 
     @commands.hybrid_command(
         name="unload",
@@ -136,12 +128,12 @@ class Owner(commands.Cog, name="owner"):
             embed = discord.Embed(
                 description=f"Could not unload the `{cog}` cog.", color=0xE02B2B
             )
-            await context.send(embed=embed)
+            await context.send(embed=embed, ephemeral=True)
             return
         embed = discord.Embed(
             description=f"Successfully unloaded the `{cog}` cog.", color=0xBEBEFE
         )
-        await context.send(embed=embed)
+        await context.send(embed=embed, ephemeral=True)
 
     @commands.hybrid_command(
         name="reload",
@@ -162,12 +154,12 @@ class Owner(commands.Cog, name="owner"):
             embed = discord.Embed(
                 description=f"Could not reload the `{cog}` cog.", color=0xE02B2B
             )
-            await context.send(embed=embed)
+            await context.send(embed=embed, ephemeral=True)
             return
         embed = discord.Embed(
             description=f"Successfully reloaded the `{cog}` cog.", color=0xBEBEFE
         )
-        await context.send(embed=embed)
+        await context.send(embed=embed, ephemeral=True)
 
     @commands.hybrid_command(
         name="shutdown",
@@ -181,39 +173,8 @@ class Owner(commands.Cog, name="owner"):
         :param context: The hybrid command context.
         """
         embed = discord.Embed(description="Shutting down. Bye! :wave:", color=0xBEBEFE)
-        await context.send(embed=embed)
+        await context.send(embed=embed, ephemeral=True)
         await self.bot.close()
-
-    @commands.hybrid_command(
-        name="say",
-        description="The bot will say anything you want.",
-    )
-    @app_commands.describe(message="The message that should be repeated by the bot")
-    @commands.is_owner()
-    async def say(self, context: Context, *, message: str) -> None:
-        """
-        The bot will say anything you want.
-
-        :param context: The hybrid command context.
-        :param message: The message that should be repeated by the bot.
-        """
-        await context.send(message)
-
-    @commands.hybrid_command(
-        name="embed",
-        description="The bot will say anything you want, but within embeds.",
-    )
-    @app_commands.describe(message="The message that should be repeated by the bot")
-    @commands.is_owner()
-    async def embed(self, context: Context, *, message: str) -> None:
-        """
-        The bot will say anything you want, but using embeds.
-
-        :param context: The hybrid command context.
-        :param message: The message that should be repeated by the bot.
-        """
-        embed = discord.Embed(description=message, color=0xBEBEFE)
-        await context.send(embed=embed)
 
 
 async def setup(bot) -> None:
