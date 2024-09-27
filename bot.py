@@ -160,20 +160,17 @@ class DiscordBot(commands.Bot):
         self.logger.info("-------------------")
         await self.init_db()
         await self.load_cogs()
+        self.sync_task.start()
         self.database = DatabaseManager(
             connection=await aiosqlite.connect(
                 f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db"
             )
         )
-        self.sync_task.start()
 
     async def bot_sync(self) -> None:
         await self.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
-        self.tree.clear_commands(guild=None)
         await self.tree.sync()
         for guild in self.guilds:
-            self.tree.clear_commands(guild=guild)
-            self.tree.copy_global_to(guild=guild)
             await self.tree.sync(guild=guild)
         await self.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
 
