@@ -65,7 +65,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         name="unlink",
         description="Unlink a BBB ID (friend code) from your Discord account.",
     )
-    async def link(self, context: Context) -> None:
+    async def unlink(self, context: Context) -> None:
         """
         Unlink a BBB ID (friend code) from your Discord account.
 
