@@ -39,8 +39,10 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         name="link",
         description="Link a BBB ID (friend code) to your Discord account.",
     )
-    @app_commands.describe(bbb_id="The BBB ID to link.")
-    @app_commands.describe(bbb_name="The BBB name to link.")
+    @app_commands.describe(
+        bbb_id="The BBB ID to link.",
+        bbb_name="The BBB name to link."
+    )
     async def link(self, context: Context, bbb_id: str, bbb_name: str) -> None:
         """
         Link a BBB ID (friend code) to your Discord account.
