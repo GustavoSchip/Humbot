@@ -101,7 +101,7 @@ logger.addHandler(file_handler)
 class DiscordBot(commands.Bot):
     def __init__(self) -> None:
         super().__init__(
-            command_prefix=commands.when_mentioned_or(config["prefix"]),
+            command_prefix=commands.when_mentioned_or(config["prefix"]),  # noqa
             intents=intents,
             help_command=None,
             status=discord.Status.do_not_disturb,
