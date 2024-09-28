@@ -1,4 +1,4 @@
-import discord
+from discord import Embed
 from discord.ext import commands
 from discord.ext.commands import Context
 
@@ -17,7 +17,7 @@ class General(commands.Cog, name="general"):
 
         :param context: The hybrid command context.
         """
-        embed = discord.Embed(
+        embed = Embed(
             title="🏓 Pong!",
             description=f"The bot latency is {round(self.bot.latency * 1000)}ms.",
             color=0xBEBEFE,

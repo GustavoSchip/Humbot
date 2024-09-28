@@ -1,7 +1,32 @@
-import discord
-from discord import app_commands
+from typing import List
+
+from discord import app_commands, Interaction, User, Embed
 from discord.ext import commands
 from discord.ext.commands import Context
+from pydantic.dataclasses import dataclass
+
+
+@dataclass
+class Element:
+    name: str
+    description: str
+    wiki_url: str
+
+
+@dataclass
+class Island:
+    name: str
+    description: str
+    wiki_url: str
+
+
+@dataclass
+class Monster:
+    name: str
+    elements: List[Element]
+    islands: List[Island]
+    description: str
+    wiki_url: str
 
 
 class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
@@ -12,9 +37,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         )
         self.bot.tree.add_command(self.context_menu_user)
 
-    async def get_bbb_id(
-        self, interaction: discord.Interaction, user: discord.User
-    ) -> None:
+    async def get_bbb_id(self, interaction: Interaction, user: User) -> None:
         """
         Grabs the ID of the user.
 
@@ -28,7 +51,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         else:
             description = f"No BBB ID found for {user.mention}."
 
-        embed = discord.Embed(
+        embed = Embed(
             title=f"Info for {user.mention}",
             description=description,
             color=0xBEBEFE,
@@ -60,7 +83,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
                 f"Failed to link BBB ID. It might already be linked to your account."
             )
 
-        embed = discord.Embed(
+        embed = Embed(
             title="Link status",
             description=description,
             color=0xBEBEFE,
@@ -85,7 +108,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
                 "Failed to unlink BBB ID. It might not be linked to your account."
             )
 
-        embed = discord.Embed(
+        embed = Embed(
             title="Link status",
             description=description,
             color=0xBEBEFE,

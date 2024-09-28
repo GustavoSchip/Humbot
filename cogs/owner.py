@@ -1,5 +1,4 @@
-import discord
-from discord import app_commands
+from discord import app_commands, Game, Embed, Status
 from discord.ext import commands
 from discord.ext.commands import Context
 
@@ -32,39 +31,39 @@ class Owner(commands.Cog, name="owner"):
         if scope == "global":
             try:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                    activity=Game(name="Syncing..."), status=Status.idle
                 )
                 await context.bot.tree.sync()
-                embed = discord.Embed(
+                embed = Embed(
                     description="Slash commands have been globally synchronized.",
                     color=0xBEBEFE,
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Ready!"),
-                    status=discord.Status.online,
+                    activity=Game(name="Ready!"),
+                    status=Status.online,
                 )
             return
         elif scope == "guild":
             try:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                    activity=Game(name="Syncing..."), status=Status.idle
                 )
                 context.bot.tree.copy_global_to(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
-                embed = discord.Embed(
+                embed = Embed(
                     description="Slash commands have been synchronized in this guild.",
                     color=0xBEBEFE,
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Ready!"),
-                    status=discord.Status.online,
+                    activity=Game(name="Ready!"),
+                    status=Status.online,
                 )
             return
-        embed = discord.Embed(
+        embed = Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
         )
         await context.send(embed=embed, ephemeral=True)
@@ -93,40 +92,40 @@ class Owner(commands.Cog, name="owner"):
         if scope == "global":
             try:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                    activity=Game(name="Syncing..."), status=Status.idle
                 )
                 context.bot.tree.clear_commands(guild=None)
                 await context.bot.tree.sync()
-                embed = discord.Embed(
+                embed = Embed(
                     description="Slash commands have been globally unsynchronized.",
                     color=0xBEBEFE,
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Ready!"),
-                    status=discord.Status.online,
+                    activity=Game(name="Ready!"),
+                    status=Status.online,
                 )
             return
         elif scope == "guild":
             try:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                    activity=Game(name="Syncing..."), status=Status.idle
                 )
                 context.bot.tree.clear_commands(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
-                embed = discord.Embed(
+                embed = Embed(
                     description="Slash commands have been unsynchronized in this guild.",
                     color=0xBEBEFE,
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Ready!"),
-                    status=discord.Status.online,
+                    activity=Game(name="Ready!"),
+                    status=Status.online,
                 )
             return
-        embed = discord.Embed(
+        embed = Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
         )
         await context.send(embed=embed, ephemeral=True)
@@ -155,40 +154,40 @@ class Owner(commands.Cog, name="owner"):
         if scope == "global":
             try:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                    activity=Game(name="Syncing..."), status=Status.idle
                 )
                 context.bot.tree.clear_commands(guild=None)
                 await context.bot.tree.sync()
-                embed = discord.Embed(
+                embed = Embed(
                     description="Slash commands have been globally resynchronized.",
                     color=0xBEBEFE,
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Ready!"),
-                    status=discord.Status.online,
+                    activity=Game(name="Ready!"),
+                    status=Status.online,
                 )
             return
         elif scope == "guild":
             try:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                    activity=Game(name="Syncing..."), status=Status.idle
                 )
                 context.bot.tree.clear_commands(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
-                embed = discord.Embed(
+                embed = Embed(
                     description="Slash commands have been resynchronized in this guild.",
                     color=0xBEBEFE,
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="Ready!"),
-                    status=discord.Status.online,
+                    activity=Game(name="Ready!"),
+                    status=Status.online,
                 )
             return
-        embed = discord.Embed(
+        embed = Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
         )
         await context.send(embed=embed, ephemeral=True)
@@ -209,13 +208,13 @@ class Owner(commands.Cog, name="owner"):
         """
         try:
             await self.bot.load_extension(f"cogs.{cog}")
-        except Exception:
-            embed = discord.Embed(
+        except Exception:  # noqa
+            embed = Embed(
                 description=f"Could not load the `{cog}` cog.", color=0xE02B2B
             )
             await context.send(embed=embed, ephemeral=True)
             return
-        embed = discord.Embed(
+        embed = Embed(
             description=f"Successfully loaded the `{cog}` cog.", color=0xBEBEFE
         )
         await context.send(embed=embed, ephemeral=True)
@@ -236,13 +235,13 @@ class Owner(commands.Cog, name="owner"):
         """
         try:
             await self.bot.unload_extension(f"cogs.{cog}")
-        except Exception:
-            embed = discord.Embed(
+        except Exception:  # noqa
+            embed = Embed(
                 description=f"Could not unload the `{cog}` cog.", color=0xE02B2B
             )
             await context.send(embed=embed, ephemeral=True)
             return
-        embed = discord.Embed(
+        embed = Embed(
             description=f"Successfully unloaded the `{cog}` cog.", color=0xBEBEFE
         )
         await context.send(embed=embed, ephemeral=True)
@@ -263,13 +262,13 @@ class Owner(commands.Cog, name="owner"):
         """
         try:
             await self.bot.reload_extension(f"cogs.{cog}")
-        except Exception:
-            embed = discord.Embed(
+        except Exception:  # noqa
+            embed = Embed(
                 description=f"Could not reload the `{cog}` cog.", color=0xE02B2B
             )
             await context.send(embed=embed, ephemeral=True)
             return
-        embed = discord.Embed(
+        embed = Embed(
             description=f"Successfully reloaded the `{cog}` cog.", color=0xBEBEFE
         )
         await context.send(embed=embed, ephemeral=True)
@@ -286,7 +285,7 @@ class Owner(commands.Cog, name="owner"):
 
         :param context: The hybrid command context.
         """
-        embed = discord.Embed(description="Shutting down. Bye! :wave:", color=0xBEBEFE)
+        embed = Embed(description="Shutting down. Bye! :wave:", color=0xBEBEFE)
         await context.send(embed=embed, ephemeral=True)
         await self.bot.close()
 

@@ -1,22 +1,33 @@
-import json
-import logging
-import os
-import platform
-import sys
+from json import load
+from logging import (
+    Formatter,
+    DEBUG,
+    INFO,
+    WARNING,
+    ERROR,
+    CRITICAL,
+    getLogger,
+    StreamHandler,
+    FileHandler,
+)
+from os import name, getenv, listdir
+from os.path import realpath, dirname, isfile
+from platform import python_version, system, release
+from sys import exit
 
-import aiosqlite
-import discord
+from aiosqlite import connect
+from discord import Status, Game, Embed, Intents, Message, __version__
 from discord.ext import commands, tasks
 from discord.ext.commands import Context
 from dotenv import load_dotenv
 
 from database import DatabaseManager
 
-if not os.path.isfile(f"{os.path.realpath(os.path.dirname(__file__))}/config.json"):
-    sys.exit("'config.json' not found! Please add it and try again.")
+if not isfile(f"{realpath(dirname(__file__))}/config.json"):
+    exit("'config.json' not found! Please add it and try again.")
 else:
-    with open(f"{os.path.realpath(os.path.dirname(__file__))}/config.json") as file:
-        config = json.load(file)
+    with open(f"{realpath(dirname(__file__))}/config.json") as file:
+        config = load(file)
 
 """	
 Setup bot intents (events restrictions)
@@ -51,10 +62,10 @@ intents.message_content = True
 intents.presences = True
 """
 
-intents = discord.Intents.all()
+intents = Intents.all()
 
 
-class LoggingFormatter(logging.Formatter):
+class LoggingFormatter(Formatter):
     black = "\x1b[30m"
     red = "\x1b[31m"
     green = "\x1b[32m"
@@ -65,11 +76,11 @@ class LoggingFormatter(logging.Formatter):
     bold = "\x1b[1m"
 
     COLORS = {
-        logging.DEBUG: gray + bold,
-        logging.INFO: blue + bold,
-        logging.WARNING: yellow + bold,
-        logging.ERROR: red,
-        logging.CRITICAL: red + bold,
+        DEBUG: gray + bold,
+        INFO: blue + bold,
+        WARNING: yellow + bold,
+        ERROR: red,
+        CRITICAL: red + bold,
     }
 
     def format(self, record):
@@ -79,17 +90,17 @@ class LoggingFormatter(logging.Formatter):
         log_format = log_format.replace("(reset)", self.reset)
         log_format = log_format.replace("(levelcolor)", log_color)
         log_format = log_format.replace("(green)", self.green + self.bold)
-        formatter = logging.Formatter(log_format, "%Y-%m-%d %H:%M:%S", style="{")
+        formatter = Formatter(log_format, "%Y-%m-%d %H:%M:%S", style="{")
         return formatter.format(record)
 
 
-logger = logging.getLogger("Humbot")
-logger.setLevel(logging.INFO)
+logger = getLogger("Humbot")
+logger.setLevel(INFO)
 
-console_handler = logging.StreamHandler()
+console_handler = StreamHandler()
 console_handler.setFormatter(LoggingFormatter())
-file_handler = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
-file_handler_formatter = logging.Formatter(
+file_handler = FileHandler(filename="discord.log", encoding="utf-8", mode="w")
+file_handler_formatter = Formatter(
     "[{asctime}] [{levelname:<8}] {name}: {message}", "%Y-%m-%d %H:%M:%S", style="{"
 )
 file_handler.setFormatter(file_handler_formatter)
@@ -104,8 +115,8 @@ class DiscordBot(commands.Bot):
             command_prefix=commands.when_mentioned_or(config["prefix"]),  # noqa
             intents=intents,
             help_command=None,
-            status=discord.Status.do_not_disturb,
-            activity=discord.Game(name="Starting..."),
+            status=Status.do_not_disturb,
+            activity=Game(name="Starting..."),
         )
         """
         This creates custom bot variables so that we can access these variables in cogs more easily.
@@ -120,12 +131,8 @@ class DiscordBot(commands.Bot):
         self.database = None
 
     async def init_db(self) -> None:
-        async with aiosqlite.connect(
-            f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db"
-        ) as db:
-            with open(
-                f"{os.path.realpath(os.path.dirname(__file__))}/database/schema.sql"
-            ) as db_file:
+        async with connect(f"{realpath(dirname(__file__))}/database/database.db") as db:
+            with open(f"{realpath(dirname(__file__))}/database/schema.sql") as db_file:
                 await db.executescript(db_file.read())
             await db.commit()
 
@@ -133,9 +140,7 @@ class DiscordBot(commands.Bot):
         """
         The code in this function is executed whenever the bot will start.
         """
-        for cog_file in os.listdir(
-            f"{os.path.realpath(os.path.dirname(__file__))}/cogs"
-        ):
+        for cog_file in listdir(f"{realpath(dirname(__file__))}/cogs"):
             if cog_file.endswith(".py"):
                 extension = cog_file[:-3]
                 try:
@@ -154,31 +159,27 @@ class DiscordBot(commands.Bot):
         """
         self.logger.info("-------------------")
         self.logger.info(f"Logged in as {self.user.name}")
-        self.logger.info(f"discord.py API version: {discord.__version__}")
-        self.logger.info(f"Python version: {platform.python_version()}")
-        self.logger.info(
-            f"Running on: {platform.system()} {platform.release()} ({os.name})"
-        )
+        self.logger.info(f"discord.py API version: {__version__}")
+        self.logger.info(f"Python version: {python_version()}")
+        self.logger.info(f"Running on: {system()} {release()} ({name})")
         self.logger.info("-------------------")
         await self.init_db()
         await self.load_cogs()
         self.sync_task.start()
         self.database = DatabaseManager(
-            connection=await aiosqlite.connect(
-                f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db"
+            connection=await connect(
+                f"{realpath(dirname(__file__))}/database/database.db"
             )
         )
 
     async def bot_sync(self) -> None:
-        await self.change_presence(
-            activity=discord.Game(name="Syncing..."), status=discord.Status.idle
-        )
+        await self.change_presence(activity=Game(name="Syncing..."), status=Status.idle)
         await self.tree.sync()
         for guild in self.guilds:
             await self.tree.sync(guild=guild)
         await self.change_presence(
-            activity=discord.Game(name="Ready!"),
-            status=discord.Status.online,
+            activity=Game(name="Ready!"),
+            status=Status.online,
         )
         self.logger.info("Slash commands synced")
 
@@ -196,7 +197,7 @@ class DiscordBot(commands.Bot):
         """
         await self.wait_until_ready()
 
-    async def on_message(self, message: discord.Message) -> None:
+    async def on_message(self, message: Message) -> None:
         """
         The code in this event is executed every time someone sends a message, with or without the prefix
 
@@ -235,14 +236,14 @@ class DiscordBot(commands.Bot):
             minutes, seconds = divmod(error.retry_after, 60)
             hours, minutes = divmod(minutes, 60)
             hours = hours % 24
-            embed = discord.Embed(
+            embed = Embed(
                 title="Error",
                 description=f"**Please slow down** - You can use this command again in {f'{round(hours)} hours' if round(hours) > 0 else ''} {f'{round(minutes)} minutes' if round(minutes) > 0 else ''} {f'{round(seconds)} seconds' if round(seconds) > 0 else ''}.",
                 color=0xE02B2B,
             )
             await context.send(embed=embed, ephemeral=True)
         elif isinstance(error, commands.NotOwner):
-            embed = discord.Embed(
+            embed = Embed(
                 title="Error",
                 description="You are not the owner of the bot!",
                 color=0xE02B2B,
@@ -257,7 +258,7 @@ class DiscordBot(commands.Bot):
                     f"{context.author} (ID: {context.author.id}) tried to execute an owner only command in the bot's DMs, but the user is not an owner of the bot."
                 )
         elif isinstance(error, commands.MissingPermissions):
-            embed = discord.Embed(
+            embed = Embed(
                 title="Error",
                 description="You are missing the permission(s) `"
                 + ", ".join(error.missing_permissions)
@@ -266,7 +267,7 @@ class DiscordBot(commands.Bot):
             )
             await context.send(embed=embed, ephemeral=True)
         elif isinstance(error, commands.BotMissingPermissions):
-            embed = discord.Embed(
+            embed = Embed(
                 title="Error",
                 description="I am missing the permission(s) `"
                 + ", ".join(error.missing_permissions)
@@ -275,7 +276,7 @@ class DiscordBot(commands.Bot):
             )
             await context.send(embed=embed, ephemeral=True)
         elif isinstance(error, commands.MissingRequiredArgument):
-            embed = discord.Embed(
+            embed = Embed(
                 title="Error",
                 description=f"Reason: {error}",
                 color=0xE02B2B,
@@ -288,4 +289,4 @@ class DiscordBot(commands.Bot):
 load_dotenv()
 
 bot = DiscordBot()
-bot.run(os.getenv("TOKEN"))
+bot.run(getenv("TOKEN"))
