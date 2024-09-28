@@ -21,7 +21,7 @@ class Owner(commands.Cog, name="owner"):
     )
     @app_commands.default_permissions(administrator=True)
     @commands.is_owner()
-    async def sync(self, context: Context, scope: app_commands.Choice[str]) -> None:
+    async def sync(self, context: Context, scope: str) -> None:
         """
         Synchronizes the slash commands.
 
@@ -29,7 +29,7 @@ class Owner(commands.Cog, name="owner"):
         :param scope: The scope of the sync.
         """
 
-        if scope.value == "global":
+        if scope == "global":
             try:
                 await self.bot.change_presence(
                     activity=discord.Game(name="Syncing..."), status=discord.Status.idle
@@ -46,7 +46,7 @@ class Owner(commands.Cog, name="owner"):
                     status=discord.Status.online,
                 )
             return
-        elif scope.value == "guild":
+        elif scope == "guild":
             try:
                 await self.bot.change_presence(
                     activity=discord.Game(name="Syncing..."), status=discord.Status.idle
@@ -82,7 +82,7 @@ class Owner(commands.Cog, name="owner"):
     )
     @app_commands.default_permissions(administrator=True)
     @commands.is_owner()
-    async def unsync(self, context: Context, scope: app_commands.Choice[str]) -> None:
+    async def unsync(self, context: Context, scope: str) -> None:
         """
         Synchronizes the slash commands.
 
@@ -90,7 +90,7 @@ class Owner(commands.Cog, name="owner"):
         :param scope: The scope of the sync. Can be `global`, `current_guild` or `guild`.
         """
 
-        if scope.value == "global":
+        if scope == "global":
             try:
                 await self.bot.change_presence(
                     activity=discord.Game(name="Syncing..."), status=discord.Status.idle
@@ -108,7 +108,7 @@ class Owner(commands.Cog, name="owner"):
                     status=discord.Status.online,
                 )
             return
-        elif scope.value == "guild":
+        elif scope == "guild":
             try:
                 await self.bot.change_presence(
                     activity=discord.Game(name="Syncing..."), status=discord.Status.idle
@@ -144,7 +144,7 @@ class Owner(commands.Cog, name="owner"):
     )
     @app_commands.default_permissions(administrator=True)
     @commands.is_owner()
-    async def resync(self, context: Context, scope: app_commands.Choice[str]) -> None:
+    async def resync(self, context: Context, scope: str) -> None:
         """
         Resynchronizes the slash commands.
 
@@ -152,7 +152,7 @@ class Owner(commands.Cog, name="owner"):
         :param scope: The scope of the resync.
         """
 
-        if scope.value == "global":
+        if scope == "global":
             try:
                 await self.bot.change_presence(
                     activity=discord.Game(name="Syncing..."), status=discord.Status.idle
@@ -170,7 +170,7 @@ class Owner(commands.Cog, name="owner"):
                     status=discord.Status.online,
                 )
             return
-        elif scope.value == "guild":
+        elif scope == "guild":
             try:
                 await self.bot.change_presence(
                     activity=discord.Game(name="Syncing..."), status=discord.Status.idle
