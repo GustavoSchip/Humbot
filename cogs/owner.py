@@ -42,7 +42,7 @@ class Owner(commands.Cog, name="owner"):
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="My Singing Monsters"),
+                    activity=discord.Game(name="Ready!"),
                     status=discord.Status.online,
                 )
             return
@@ -60,7 +60,7 @@ class Owner(commands.Cog, name="owner"):
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="My Singing Monsters"),
+                    activity=discord.Game(name="Ready!"),
                     status=discord.Status.online,
                 )
             return
@@ -104,7 +104,7 @@ class Owner(commands.Cog, name="owner"):
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="My Singing Monsters"),
+                    activity=discord.Game(name="Ready!"),
                     status=discord.Status.online,
                 )
             return
@@ -122,7 +122,7 @@ class Owner(commands.Cog, name="owner"):
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="My Singing Monsters"),
+                    activity=discord.Game(name="Ready!"),
                     status=discord.Status.online,
                 )
             return
@@ -166,7 +166,7 @@ class Owner(commands.Cog, name="owner"):
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="My Singing Monsters"),
+                    activity=discord.Game(name="Ready!"),
                     status=discord.Status.online,
                 )
             return
@@ -184,7 +184,7 @@ class Owner(commands.Cog, name="owner"):
                 await context.send(embed=embed, ephemeral=True)
             finally:
                 await self.bot.change_presence(
-                    activity=discord.Game(name="My Singing Monsters"),
+                    activity=discord.Game(name="Ready!"),
                     status=discord.Status.online,
                 )
             return

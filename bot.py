@@ -177,7 +177,7 @@ class DiscordBot(commands.Bot):
         for guild in self.guilds:
             await self.tree.sync(guild=guild)
         await self.change_presence(
-            activity=discord.Game(name="My Singing Monsters"),
+            activity=discord.Game(name="Ready!"),
             status=discord.Status.online,
         )
         self.logger.info("Slash commands synced")
