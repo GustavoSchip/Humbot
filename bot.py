@@ -62,7 +62,7 @@ intents.message_content = True
 intents.presences = True
 """
 
-intents = Intents.all()
+intents = Intents.all()  # TODO: Finetune needed permissions/intents.
 
 
 class LoggingFormatter(Formatter):
@@ -85,7 +85,7 @@ class LoggingFormatter(Formatter):
 
     def format(self, record):
         log_color = self.COLORS[record.levelno]
-        log_format = "(black){asctime}(reset) (levelcolor){levelname:<8}(reset) (green){name}(reset) {message}"
+        log_format = "(black)[{asctime}](reset) (levelcolor)[{levelname}](reset) (green)[{name}](reset) {message}"
         log_format = log_format.replace("(black)", self.black + self.bold)
         log_format = log_format.replace("(reset)", self.reset)
         log_format = log_format.replace("(levelcolor)", log_color)
@@ -101,9 +101,15 @@ console_handler = StreamHandler()
 console_handler.setFormatter(LoggingFormatter())
 file_handler = FileHandler(filename="discord.log", encoding="utf-8", mode="w")
 file_handler_formatter = Formatter(
-    "[{asctime}] [{levelname:<8}] {name}: {message}", "%Y-%m-%d %H:%M:%S", style="{"
+    "[{asctime}] [{levelname}] [{name}] {message}", "%Y-%m-%d %H:%M:%S", style="{"
 )
 file_handler.setFormatter(file_handler_formatter)
+
+discord_logger = getLogger("discord")
+discord_logger.setLevel(INFO)
+
+discord_logger.addHandler(console_handler)
+discord_logger.addHandler(file_handler)
 
 logger.addHandler(console_handler)
 logger.addHandler(file_handler)
@@ -118,14 +124,6 @@ class DiscordBot(commands.Bot):
             status=Status.do_not_disturb,
             activity=Game(name="Starting..."),
         )
-        """
-        This creates custom bot variables so that we can access these variables in cogs more easily.
-
-        For example, The config is available using the following code:
-        - self.config # In this class
-        - bot.config # In this file
-        - self.bot.config # In cogs
-        """
         self.logger = logger
         self.config = config
         self.database = None
@@ -289,4 +287,4 @@ class DiscordBot(commands.Bot):
 load_dotenv()
 
 bot = DiscordBot()
-bot.run(getenv("TOKEN"))
+bot.run(token=getenv("TOKEN"), log_handler=None)
