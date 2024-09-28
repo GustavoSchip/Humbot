@@ -31,7 +31,9 @@ class Owner(commands.Cog, name="owner"):
 
         if scope.value == "global":
             try:
-                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                )
                 await context.bot.tree.sync()
                 embed = discord.Embed(
                     description="Slash commands have been globally synchronized.",
@@ -39,12 +41,16 @@ class Owner(commands.Cog, name="owner"):
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
-                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"),
-                                               status=discord.Status.online)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="My Singing Monsters"),
+                    status=discord.Status.online,
+                )
             return
         elif scope.value == "guild":
             try:
-                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                )
                 context.bot.tree.copy_global_to(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
                 embed = discord.Embed(
@@ -53,8 +59,10 @@ class Owner(commands.Cog, name="owner"):
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
-                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"),
-                                               status=discord.Status.online)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="My Singing Monsters"),
+                    status=discord.Status.online,
+                )
             return
         embed = discord.Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
@@ -84,7 +92,9 @@ class Owner(commands.Cog, name="owner"):
 
         if scope.value == "global":
             try:
-                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                )
                 context.bot.tree.clear_commands(guild=None)
                 await context.bot.tree.sync()
                 embed = discord.Embed(
@@ -93,12 +103,16 @@ class Owner(commands.Cog, name="owner"):
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
-                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"),
-                                               status=discord.Status.online)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="My Singing Monsters"),
+                    status=discord.Status.online,
+                )
             return
         elif scope.value == "guild":
             try:
-                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                )
                 context.bot.tree.clear_commands(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
                 embed = discord.Embed(
@@ -107,8 +121,10 @@ class Owner(commands.Cog, name="owner"):
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
-                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"),
-                                               status=discord.Status.online)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="My Singing Monsters"),
+                    status=discord.Status.online,
+                )
             return
         embed = discord.Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B
@@ -138,7 +154,9 @@ class Owner(commands.Cog, name="owner"):
 
         if scope.value == "global":
             try:
-                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                )
                 context.bot.tree.clear_commands(guild=None)
                 await context.bot.tree.sync()
                 embed = discord.Embed(
@@ -147,12 +165,16 @@ class Owner(commands.Cog, name="owner"):
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
-                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"),
-                                               status=discord.Status.online)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="My Singing Monsters"),
+                    status=discord.Status.online,
+                )
             return
         elif scope.value == "guild":
             try:
-                await self.bot.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+                )
                 context.bot.tree.clear_commands(guild=context.guild)
                 await context.bot.tree.sync(guild=context.guild)
                 embed = discord.Embed(
@@ -161,8 +183,10 @@ class Owner(commands.Cog, name="owner"):
                 )
                 await context.send(embed=embed, ephemeral=True)
             finally:
-                await self.bot.change_presence(activity=discord.Game(name="My Singing Monsters"),
-                                               status=discord.Status.online)
+                await self.bot.change_presence(
+                    activity=discord.Game(name="My Singing Monsters"),
+                    status=discord.Status.online,
+                )
             return
         embed = discord.Embed(
             description="The scope must be `global` or `guild`.", color=0xE02B2B

@@ -13,7 +13,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         self.bot.tree.add_command(self.context_menu_user)
 
     async def get_bbb_id(
-            self, interaction: discord.Interaction, user: discord.User
+        self, interaction: discord.Interaction, user: discord.User
     ) -> None:
         """
         Grabs the ID of the user.
@@ -40,8 +40,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         description="Link a BBB ID (friend code) to your Discord account.",
     )
     @app_commands.describe(
-        bbb_id="The BBB ID to link.",
-        bbb_name="The BBB name to link."
+        bbb_id="The BBB ID to link.", bbb_name="The BBB name to link."
     )
     async def link(self, context: Context, bbb_id: str, bbb_name: str) -> None:
         """
@@ -51,11 +50,15 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         :param bbb_id: The BBB ID to link.
         :param bbb_name: The BBB name to link.
         """
-        success = await self.bot.database.set_bbb_id(context.author.id, bbb_id, bbb_name)
+        success = await self.bot.database.set_bbb_id(
+            context.author.id, bbb_id, bbb_name
+        )
         if success:
             description = f"Successfully linked BBB ID `{bbb_id}` with name `{bbb_name}` to your account."
         else:
-            description = f"Failed to link BBB ID. It might already be linked to your account."
+            description = (
+                f"Failed to link BBB ID. It might already be linked to your account."
+            )
 
         embed = discord.Embed(
             title="Link status",
@@ -78,7 +81,9 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         if success:
             description = "Successfully unlinked your BBB ID from your account."
         else:
-            description = "Failed to unlink BBB ID. It might not be linked to your account."
+            description = (
+                "Failed to unlink BBB ID. It might not be linked to your account."
+            )
 
         embed = discord.Embed(
             title="Link status",

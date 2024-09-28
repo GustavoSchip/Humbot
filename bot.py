@@ -121,10 +121,10 @@ class DiscordBot(commands.Bot):
 
     async def init_db(self) -> None:
         async with aiosqlite.connect(
-                f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db"
+            f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db"
         ) as db:
             with open(
-                    f"{os.path.realpath(os.path.dirname(__file__))}/database/schema.sql"
+                f"{os.path.realpath(os.path.dirname(__file__))}/database/schema.sql"
             ) as db_file:
                 await db.executescript(db_file.read())
             await db.commit()
@@ -133,7 +133,9 @@ class DiscordBot(commands.Bot):
         """
         The code in this function is executed whenever the bot will start.
         """
-        for cog_file in os.listdir(f"{os.path.realpath(os.path.dirname(__file__))}/cogs"):
+        for cog_file in os.listdir(
+            f"{os.path.realpath(os.path.dirname(__file__))}/cogs"
+        ):
             if cog_file.endswith(".py"):
                 extension = cog_file[:-3]
                 try:
@@ -168,11 +170,17 @@ class DiscordBot(commands.Bot):
         )
 
     async def bot_sync(self) -> None:
-        await self.change_presence(activity=discord.Game(name="Syncing..."), status=discord.Status.idle)
+        await self.change_presence(
+            activity=discord.Game(name="Syncing..."), status=discord.Status.idle
+        )
         await self.tree.sync()
         for guild in self.guilds:
             await self.tree.sync(guild=guild)
-        await self.change_presence(activity=discord.Game(name="My Singing Monsters"), status=discord.Status.online)
+        await self.change_presence(
+            activity=discord.Game(name="My Singing Monsters"),
+            status=discord.Status.online,
+        )
+        self.logger.info("Slash commands synced")
 
     @tasks.loop(hours=1.0)
     async def sync_task(self) -> None:
@@ -252,8 +260,8 @@ class DiscordBot(commands.Bot):
             embed = discord.Embed(
                 title="Error",
                 description="You are missing the permission(s) `"
-                            + ", ".join(error.missing_permissions)
-                            + "` to execute this command!",
+                + ", ".join(error.missing_permissions)
+                + "` to execute this command!",
                 color=0xE02B2B,
             )
             await context.send(embed=embed, ephemeral=True)
@@ -261,8 +269,8 @@ class DiscordBot(commands.Bot):
             embed = discord.Embed(
                 title="Error",
                 description="I am missing the permission(s) `"
-                            + ", ".join(error.missing_permissions)
-                            + "` to fully perform this command!",
+                + ", ".join(error.missing_permissions)
+                + "` to fully perform this command!",
                 color=0xE02B2B,
             )
             await context.send(embed=embed, ephemeral=True)
