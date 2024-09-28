@@ -1,0 +1,477 @@
+{
+  "elements": [
+    {
+      "name": "Air",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Plant",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Earth",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Water",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Cold",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Fire",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Light",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Psychic",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Faerie",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Bone",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Plasma",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Shadow",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Mech",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Crystal",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Poison",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Electricity",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Legendary",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Spooktacle",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Festival of Yay",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Season of Love",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Eggs-Travaganza",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "SummerSong",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Feast-Ember",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Beat Hereafter",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Echoes of Eco",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Anniversary Month",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Crescendo Moon",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "SkyPainting",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Life-Formula",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Cloverspell",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "MindBoggle",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Perplexplore",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Mythical",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Dream",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Celestial",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Dipster",
+      "description": "",
+      "wiki_url": ""
+    }
+  ],
+  "islands": [
+    {
+      "name": "Plant Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Cold Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Air Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Water Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Earth Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Mirror Plant Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Mirror Cold Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Mirror Air Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Mirror Water Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Mirror Earth Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Shugabush Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "The Colossingum",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Gold Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Ethereal Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Ethereal Workshop",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Fire Haven",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Fire Oasis",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Mythical Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Light Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Psychic Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Faerie Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Bone Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Magical Sanctum",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Magical Nexus",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Seasonal Shanty",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Amber Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Wublin Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Celestial Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Tribal Island",
+      "description": "",
+      "wiki_url": ""
+    },
+    {
+      "name": "Composer Island",
+      "description": "",
+      "wiki_url": ""
+    }
+  ],
+  "monsters": [
+    {
+      "name": "Mammott",
+      "elements": [
+        "Cold"
+      ],
+      "islands": [
+        "Plant Island",
+        "Cold Island",
+        "Air Island",
+        "Earth Island",
+        "Mirror Plant Island",
+        "Mirror Cold Island",
+        "Mirror Air Island",
+        "Mirror Earth Island",
+        "Shugabush Island",
+        "The Colossingum",
+        "Gold Island",
+        "Fire Oasis",
+        "Light Island",
+        "Faerie Island",
+        "Tribal Island",
+        "Composer Island"
+      ],
+      "description": "Mammotts' luxurious fur ensures that these Cold elementals are never chilly. Tangles, however, are an ongoing issue. Their resonant anthem celebrates blizzards and frosted windows. Mammotts do not shovel snow.",
+      "breeding_incubation": [
+        {
+          "duration": 120,
+          "enhanced": false,
+          "skin_boost": false
+        },
+        {
+          "duration": 90,
+          "enhanced": true,
+          "skin_boost": false
+        },
+        {
+          "duration": 108,
+          "enhanced": false,
+          "skin_boost": true
+        },
+        {
+          "duration": 78,
+          "enhanced": true,
+          "skin_boost": true
+        }
+      ],
+      "wiki_url": "https://mysingingmonsters.fandom.com/wiki/Mammott"
+    },
+    {
+      "name": "Toe Jammer",
+      "elements": [
+        "Water"
+      ],
+      "islands": [
+        "Plant Island",
+        "Cold Island",
+        "Air Island",
+        "Water Island",
+        "Mirror Plant Island",
+        "Mirror Cold Island",
+        "Mirror Air Island",
+        "Mirror Water Island",
+        "The Colossingum",
+        "Gold Island",
+        "Fire Oasis",
+        "Psychic Island",
+        "Bone Island",
+        "Tribal Island",
+        "Composer Island"
+      ],
+      "description": "While Toe Jammers may appear fragile, these rubbery Water elementals are very tough. Toe Jammers sing of liquid wonders: deep sea leviathans, crashing surf, flooded basements, and bubble tea!",
+      "breeding_incubation": [
+        {
+          "duration": 60,
+          "enhanced": false,
+          "skin_boost": false
+        },
+        {
+          "duration": 45,
+          "enhanced": true,
+          "skin_boost": false
+        },
+        {
+          "duration": 54,
+          "enhanced": false,
+          "skin_boost": true
+        },
+        {
+          "duration": 39,
+          "enhanced": true,
+          "skin_boost": true
+        }
+      ],
+      "wiki_url": "https://mysingingmonsters.fandom.com/wiki/Toe_Jammer"
+    },
+    {
+      "name": "Maw",
+      "elements": [
+        "Water",
+        "Cold"
+      ],
+      "islands": [
+        "Plant Island",
+        "Cold Island",
+        "Air Island",
+        "Mirror Plant Island",
+        "Mirror Cold Island",
+        "Mirror Air Island",
+        "The Colossingum",
+        "Gold Island",
+        "Fire Oasis",
+        "Tribal Island",
+        "Composer Island"
+      ],
+      "description": "The eyeless Maw is a refined combination of Cold and Water elements. Its dense fur acts as a general sensory organ, and provides efficient insulation to maintain a liquid body interior. Maws are a little mouthy. Tonguey too.",
+      "breeding_incubation": [
+        {
+          "duration": 1800,
+          "enhanced": false,
+          "skin_boost": false
+        },
+        {
+          "duration": 1350,
+          "enhanced": true,
+          "skin_boost": false
+        },
+        {
+          "duration": 1620,
+          "enhanced": false,
+          "skin_boost": true
+        },
+        {
+          "duration": 1170,
+          "enhanced": true,
+          "skin_boost": true
+        }
+      ],
+      "wiki_url": "https://mysingingmonsters.fandom.com/wiki/Maw"
+    }
+  ]
+}

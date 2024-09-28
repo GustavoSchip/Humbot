@@ -25,9 +25,13 @@ from database import DatabaseManager
 
 if not isfile(f"{realpath(dirname(__file__))}/config.json"):
     exit("'config.json' not found! Please add it and try again.")
+elif not isfile(f"{realpath(dirname(__file__))}/data.json"):
+    exit("'data.json' not found! Please add it and try again.")
 else:
     with open(f"{realpath(dirname(__file__))}/config.json") as file:
         config = load(file)
+    with open(f"{realpath(dirname(__file__))}/data.json") as file:
+        data = load(file)
 
 """	
 Setup bot intents (events restrictions)
@@ -126,6 +130,7 @@ class DiscordBot(commands.Bot):
         )
         self.logger = logger
         self.config = config
+        self.data = data
         self.database = None
 
     async def init_db(self) -> None:
