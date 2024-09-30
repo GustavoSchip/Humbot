@@ -194,9 +194,9 @@ class Owner(commands.Cog, name="owner"):
 
     @commands.hybrid_command(
         name="load",
-        description="Load a cog",
+        description="Load a cog.",
     )
-    @app_commands.describe(cog="The name of the cog to load")
+    @app_commands.describe(cog="The name of the cog to load.")
     @app_commands.default_permissions(administrator=True)
     @commands.is_owner()
     async def load(self, context: Context, cog: str) -> None:
@@ -250,7 +250,7 @@ class Owner(commands.Cog, name="owner"):
         name="reload",
         description="Reloads a cog.",
     )
-    @app_commands.describe(cog="The name of the cog to reload")
+    @app_commands.describe(cog="The name of the cog to reload.")
     @app_commands.default_permissions(administrator=True)
     @commands.is_owner()
     async def reload(self, context: Context, cog: str) -> None:

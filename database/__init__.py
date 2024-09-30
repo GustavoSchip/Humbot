@@ -1,10 +1,10 @@
 from typing import Optional
 
-import aiosqlite
+from aiosqlite import Connection
 
 
 class DatabaseManager:
-    def __init__(self, *, connection: aiosqlite.Connection) -> None:
+    def __init__(self, *, connection: Connection) -> None:
         self.connection = connection
 
     async def set_bbb_id(self, user_id: int, bbb_id: str, bbb_name: str) -> bool:

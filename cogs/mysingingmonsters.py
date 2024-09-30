@@ -59,9 +59,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
                 elements=[
                     self.get_element_by_name(name) for name in monster["elements"]
                 ],
-                islands=[
-                    self.get_island_by_name(name) for name in monster["islands"]
-                ],
+                islands=[self.get_island_by_name(name) for name in monster["islands"]],
                 description=monster["description"],
                 breeding_incubation=[
                     BreedingIncubation(
@@ -253,15 +251,29 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
             resulting_monsters = self.find_monster_by_elements(combined_elements)
             if len(resulting_monsters) == 1:
                 resulting_monster = resulting_monsters[0]
-                elements = ", ".join([element.name for element in resulting_monster.elements])
-                islands = ", ".join([island.name for island in resulting_monster.islands])
-                breeding_times = "\n".join([f"Duration: {incubation.duration}, Enhanced: {incubation.enhanced}, Skin Boost: {incubation.skin_boost}" for incubation in resulting_monster.breeding_incubation])
+                elements = ", ".join(
+                    [element.name for element in resulting_monster.elements]
+                )
+                islands = ", ".join(
+                    [island.name for island in resulting_monster.islands]
+                )
+                breeding_times = "\n".join(
+                    [
+                        f"Duration: {incubation.duration}, Enhanced: {incubation.enhanced}, Skin Boost: {incubation.skin_boost}"
+                        for incubation in resulting_monster.breeding_incubation
+                    ]
+                )
                 description = f"The resulting monster is **[{resulting_monster.name}]({resulting_monster.wiki_url})**.\n\n**Elements:**\n{elements}\n\n**Islands:**\n{islands}\n\n**Breeding/Incubation Times:**\n{breeding_times}"
             elif len(resulting_monsters) > 1:
                 description = f"Multiple monsters match the criteria with {monster1_obj.name} and {monster2_obj.name}:\n"
                 for monster in resulting_monsters:
                     elements = ", ".join([element.name for element in monster.elements])
-                    breeding_times = "\n".join([f"Duration: {incubation.duration}, Enhanced: {incubation.enhanced}, Skin Boost: {incubation.skin_boost}" for incubation in monster.breeding_incubation])
+                    breeding_times = "\n".join(
+                        [
+                            f"Duration: {incubation.duration}, Enhanced: {incubation.enhanced}, Skin Boost: {incubation.skin_boost}"
+                            for incubation in monster.breeding_incubation
+                        ]
+                    )
                     description += f"\n**[{monster.name}]({monster.wiki_url})**\n\n**Elements:**\n{elements}\n\n**Breeding/Incubation Times:**\n{breeding_times}\n"
             else:
                 description = f"No resulting monster matches the criteria with {monster1_obj.name} and {monster2_obj.name}."
@@ -276,8 +288,11 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
     @breeding_combo.autocomplete("monster1")
     @breeding_combo.autocomplete("monster2")
     async def autocomplete_monster(self, interaction: Interaction, current: str):
-        choices = [app_commands.Choice(name=monster.name, value=monster.name) for monster in self.monsters if
-                   current.lower() in monster.name.lower()]
+        choices = [
+            app_commands.Choice(name=monster.name, value=monster.name)
+            for monster in self.monsters
+            if current.lower() in monster.name.lower()
+        ]
         return choices
 
     @commands.hybrid_command(
