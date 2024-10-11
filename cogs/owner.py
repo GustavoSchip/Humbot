@@ -27,7 +27,6 @@ class Owner(commands.Cog, name="owner"):
         :param context: The command context.
         :param scope: The scope of the sync.
         """
-
         if scope == "global":
             try:
                 await self.bot.change_presence(
@@ -88,7 +87,6 @@ class Owner(commands.Cog, name="owner"):
         :param context: The command context.
         :param scope: The scope of the sync. Can be `global`, `current_guild` or `guild`.
         """
-
         if scope == "global":
             try:
                 await self.bot.change_presence(
@@ -150,7 +148,6 @@ class Owner(commands.Cog, name="owner"):
         :param context: The command context.
         :param scope: The scope of the resync.
         """
-
         if scope == "global":
             try:
                 await self.bot.change_presence(
