@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from discord import app_commands, Interaction, User, Embed
 from discord.ext import commands
-from discord.ext.commands import Context
+from discord.ext.commands import Context, Bot
 from pydantic.dataclasses import dataclass
 
 
@@ -40,7 +40,7 @@ class Monster:
 
 class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
     def __init__(self, bot) -> None:
-        self.bot = bot
+        self.bot: Bot = bot
         self.context_menu_user = app_commands.ContextMenu(
             name="Get BBB ID", callback=self.get_bbb_id
         )
@@ -51,8 +51,10 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         self.load_data()
 
     def load_data(self):
-        self.elements = [Element(**element) for element in self.bot.data["elements"]]
-        self.islands = [Island(**island) for island in self.bot.data["islands"]]
+        self.elements = [
+            Element(**element) for element in self.bot.data["elements"]  # noqa
+        ]
+        self.islands = [Island(**island) for island in self.bot.data["islands"]]  # noqa
         self.monsters = [
             Monster(
                 name=monster["name"],
@@ -71,7 +73,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
                 ],
                 wiki_url=monster["wiki_url"],
             )
-            for monster in self.bot.data["monsters"]
+            for monster in self.bot.data["monsters"]  # noqa
         ]
 
     def get_element_by_name(self, name: str) -> Optional[Element]:
@@ -137,7 +139,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         :param interaction: The application command interaction.
         :param user: The user that is being interacted with.
         """
-        bbb_info = await self.bot.database.get_bbb_id(user.id)
+        bbb_info = await self.bot.database.get_bbb_id(user.id)  # noqa
         if bbb_info:
             bbb_id, bbb_name = bbb_info
             description = f"The BBB ID of {user.mention} is `{bbb_id}` and the name is `{bbb_name}`."
@@ -204,8 +206,10 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         elif len(monsters) > 1:
             description = f"Multiple monsters match the criteria with a duration of ({breeding_duration}), enhanced: {bool(enhanced)}, skin_boost: {bool(skin_boost)}:\n"
             for monster in monsters:
-                elements = ", ".join([element.name for element in monster.elements])
-                islands = ", ".join([island.name for island in monster.islands])
+                elements = ", ".join(
+                    [element.name for element in monster.elements]  # noqa
+                )
+                islands = ", ".join([island.name for island in monster.islands])  # noqa
                 description += f"\n**[{monster.name}]({monster.wiki_url})**.\n\n**Elements:**\n{elements}\n\n**Islands:**\n{islands}"
         else:
             description = f"No monsters match the criteria with a duration of ({breeding_duration}), enhanced: {bool(enhanced)}, skin_boost: {bool(skin_boost)}."
@@ -267,7 +271,9 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
             elif len(resulting_monsters) > 1:
                 description = f"Multiple monsters match the criteria with {monster1_obj.name} and {monster2_obj.name}:\n"
                 for monster in resulting_monsters:
-                    elements = ", ".join([element.name for element in monster.elements])
+                    elements = ", ".join(
+                        [element.name for element in monster.elements]  # noqa
+                    )
                     breeding_times = "\n".join(
                         [
                             f"Duration: {incubation.duration}, Enhanced: {incubation.enhanced}, Skin Boost: {incubation.skin_boost}"
@@ -310,7 +316,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
         :param bbb_id: The BBB ID to link.
         :param bbb_name: The BBB name to link.
         """
-        success = await self.bot.database.set_bbb_id(
+        success = await self.bot.database.set_bbb_id(  # noqa
             context.author.id, bbb_id, bbb_name
         )
         if success:
@@ -337,7 +343,7 @@ class MySingingMonsters(commands.Cog, name="mysingingmonsters"):
 
         :param context: The application command context.
         """
-        success = await self.bot.database.remove_bbb_id(context.author.id)
+        success = await self.bot.database.remove_bbb_id(context.author.id)  # noqa
         if success:
             description = "Successfully unlinked your BBB ID from your account."
         else:

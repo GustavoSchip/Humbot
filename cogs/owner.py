@@ -1,11 +1,13 @@
+from sys import exit
+
 from discord import app_commands, Game, Embed, Status
 from discord.ext import commands
-from discord.ext.commands import Context
+from discord.ext.commands import Context, Bot
 
 
 class Owner(commands.Cog, name="owner"):
     def __init__(self, bot) -> None:
-        self.bot = bot
+        self.bot: Bot = bot
 
     @commands.hybrid_command(
         name="sync",
@@ -32,7 +34,7 @@ class Owner(commands.Cog, name="owner"):
                 await self.bot.change_presence(
                     activity=Game(name="Syncing..."), status=Status.idle
                 )
-                await context.bot.tree.sync()
+                await self.bot.tree.sync()
                 embed = Embed(
                     description="Slash commands have been globally synchronized.",
                     color=0xBEBEFE,
@@ -49,8 +51,8 @@ class Owner(commands.Cog, name="owner"):
                 await self.bot.change_presence(
                     activity=Game(name="Syncing..."), status=Status.idle
                 )
-                context.bot.tree.copy_global_to(guild=context.guild)
-                await context.bot.tree.sync(guild=context.guild)
+                self.bot.tree.copy_global_to(guild=context.guild)
+                await self.bot.tree.sync(guild=context.guild)
                 embed = Embed(
                     description="Slash commands have been synchronized in this guild.",
                     color=0xBEBEFE,
@@ -92,8 +94,8 @@ class Owner(commands.Cog, name="owner"):
                 await self.bot.change_presence(
                     activity=Game(name="Syncing..."), status=Status.idle
                 )
-                context.bot.tree.clear_commands(guild=None)
-                await context.bot.tree.sync()
+                self.bot.tree.clear_commands(guild=None)
+                await self.bot.tree.sync()
                 embed = Embed(
                     description="Slash commands have been globally unsynchronized.",
                     color=0xBEBEFE,
@@ -110,8 +112,8 @@ class Owner(commands.Cog, name="owner"):
                 await self.bot.change_presence(
                     activity=Game(name="Syncing..."), status=Status.idle
                 )
-                context.bot.tree.clear_commands(guild=context.guild)
-                await context.bot.tree.sync(guild=context.guild)
+                self.bot.tree.clear_commands(guild=context.guild)
+                await self.bot.tree.sync(guild=context.guild)
                 embed = Embed(
                     description="Slash commands have been unsynchronized in this guild.",
                     color=0xBEBEFE,
@@ -153,8 +155,8 @@ class Owner(commands.Cog, name="owner"):
                 await self.bot.change_presence(
                     activity=Game(name="Syncing..."), status=Status.idle
                 )
-                context.bot.tree.clear_commands(guild=None)
-                await context.bot.tree.sync()
+                self.bot.tree.clear_commands(guild=None)
+                await self.bot.tree.sync()
                 embed = Embed(
                     description="Slash commands have been globally resynchronized.",
                     color=0xBEBEFE,
@@ -171,8 +173,8 @@ class Owner(commands.Cog, name="owner"):
                 await self.bot.change_presence(
                     activity=Game(name="Syncing..."), status=Status.idle
                 )
-                context.bot.tree.clear_commands(guild=context.guild)
-                await context.bot.tree.sync(guild=context.guild)
+                self.bot.tree.clear_commands(guild=context.guild)
+                await self.bot.tree.sync(guild=context.guild)
                 embed = Embed(
                     description="Slash commands have been resynchronized in this guild.",
                     color=0xBEBEFE,
@@ -284,7 +286,10 @@ class Owner(commands.Cog, name="owner"):
         """
         embed = Embed(description="Shutting down. Bye! :wave:", color=0xBEBEFE)
         await context.send(embed=embed, ephemeral=True)
-        await self.bot.close()
+        try:
+            await self.bot.close()  # Doesn't always close the program!
+        finally:
+            exit(0)
 
 
 async def setup(bot) -> None:
